@@ -1,6 +1,7 @@
 package introduction;
 
 public class BST {
+
     public class Node{
         private int value;
         private int height;
@@ -70,4 +71,36 @@ public class BST {
         return node;
     }
 
+    public void populate(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            this.insert(nums[i]);
+        }
+    }
+
+    public void populatedSorted(int[] nums) {
+        populatedSorted(nums, 0, nums.length);
+    }
+
+    private void populatedSorted(int[] nums, int start, int end) {
+        if (start >= end) {
+            return;
+        }
+
+        int mid = (start + end) / 2;
+
+        this.insert(nums[mid]);
+        populatedSorted(nums, start, mid);
+        populatedSorted(nums, mid + 1, end);
+    }
+
+    public boolean balanced() {
+        return balanced(root);
+    }
+
+    private boolean balanced(Node node) {
+        if (node == null) {
+            return true;
+        }
+        return Math.abs(height(node.left) - height(node.right)) <= 1 && balanced(node.left) && balanced(node.right);
+    }
 }
